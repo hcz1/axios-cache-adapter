@@ -16,7 +16,6 @@ async function request(config, req) {
 
   try {
     const res = await read(config, req);
-
     res.config = req;
     res.request = { fromCache: true, date: new Date().getTime() };
 
