@@ -44,7 +44,7 @@ async function read(config, req) {
   }
 
   const { expires, data } = entry;
-  console.debug(JSON.stringify(entry, null, 2));
+  console.debug(JSON.stringify({ entry }, null, 2));
   // Do not check for stale cache if offline on client-side
   const offline =
     typeof navigator !== "undefined" &&
