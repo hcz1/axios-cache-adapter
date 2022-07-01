@@ -19,8 +19,9 @@ async function request(config, req) {
     res.config = req;
     res.request = {
       fromCache: true,
-      cachedTime: new Date(
-        res && res.headers && res.date ? res.headers.date : ""
+      cachedTime: (res && res.headers && res.headers.date
+        ? new Date(res.headers.date)
+        : new Date()
       ).getTime(),
     };
 

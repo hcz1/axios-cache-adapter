@@ -34,6 +34,7 @@ async function read(config, req) {
   const entry = await config.store.getItem(uuid);
 
   if (ignoreCache || !entry || !entry.data) {
+    config.debug("cache-miss", req.url);
     const error = new Error();
 
     error.reason = "cache-miss";
@@ -43,7 +44,6 @@ async function read(config, req) {
   }
 
   const { expires, data } = entry;
-  console.debug(JSON.stringify({ entry }, null, 2));
   // Do not check for stale cache if offline on client-side
   const offline =
     typeof navigator !== "undefined" &&

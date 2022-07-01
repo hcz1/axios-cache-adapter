@@ -3674,15 +3674,12 @@ function _read() {
             throw error;
 
           case 10:
-            expires = entry.expires, data = entry.data;
-            console.debug(JSON.stringify({
-              entry: entry
-            }, null, 2)); // Do not check for stale cache if offline on client-side
+            expires = entry.expires, data = entry.data; // Do not check for stale cache if offline on client-side
 
             offline = typeof navigator !== "undefined" && "onLine" in navigator && !navigator.onLine;
 
             if (!(!offline && !config.acceptStale && expires !== 0 && expires < Date.now())) {
-              _context2.next = 19;
+              _context2.next = 18;
               break;
             }
 
@@ -3692,11 +3689,11 @@ function _read() {
             error.message = "Entry is stale";
             throw error;
 
-          case 19:
+          case 18:
             config.debug(config.acceptStale ? "cache-hit-stale" : "cache-hit", req.url);
             return _context2.abrupt("return", data);
 
-          case 21:
+          case 20:
           case "end":
             return _context2.stop();
         }
@@ -4443,7 +4440,7 @@ function _request() {
             res.config = req;
             res.request = {
               fromCache: true,
-              cachedTime: new Date(res && res.headers && res.date ? res.headers.date : "").getTime()
+              cachedTime: (res && res.headers && res.headers.date ? new Date(res.headers.date) : new Date()).getTime()
             };
             return _context.abrupt("return", {
               config: config,
