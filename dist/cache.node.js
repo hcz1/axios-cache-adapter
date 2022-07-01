@@ -3687,7 +3687,7 @@ function _write() {
           case 6:
             _context.prev = 6;
             _context.t0 = _context["catch"](0);
-            config.debug('Could not store response', _context.t0);
+            config.debug("Could not store response", _context.t0);
 
             if (!config.clearOnError) {
               _context.next = 18;
@@ -3705,7 +3705,7 @@ function _write() {
           case 15:
             _context.prev = 15;
             _context.t1 = _context["catch"](10);
-            config.debug('Could not clear store', _context.t1);
+            config.debug("Could not clear store", _context.t1);
 
           case 18:
             return _context.abrupt("return", false);
@@ -3746,33 +3746,36 @@ function _read() {
               break;
             }
 
-            config.debug('cache-miss', req.url);
+            config.debug("cache-miss", req.url);
             error = new Error();
-            error.reason = 'cache-miss';
-            error.message = 'Entry not found from cache';
+            error.reason = "cache-miss";
+            error.message = "Entry not found from cache";
             throw error;
 
           case 10:
-            expires = entry.expires, data = entry.data; // Do not check for stale cache if offline on client-side
+            expires = entry.expires, data = entry.data;
+            console.debug(JSON.stringify({
+              entry: entry
+            }, null, 2)); // Do not check for stale cache if offline on client-side
 
-            offline = typeof navigator !== 'undefined' && 'onLine' in navigator && !navigator.onLine;
+            offline = typeof navigator !== "undefined" && "onLine" in navigator && !navigator.onLine;
 
             if (!(!offline && !config.acceptStale && expires !== 0 && expires < Date.now())) {
-              _context2.next = 18;
+              _context2.next = 19;
               break;
             }
 
-            config.debug('cache-stale', req.url);
+            config.debug("cache-stale", req.url);
             error = new Error();
-            error.reason = 'cache-stale';
-            error.message = 'Entry is stale';
+            error.reason = "cache-stale";
+            error.message = "Entry is stale";
             throw error;
 
-          case 18:
-            config.debug(config.acceptStale ? 'cache-hit-stale' : 'cache-hit', req.url);
+          case 19:
+            config.debug(config.acceptStale ? "cache-hit-stale" : "cache-hit", req.url);
             return _context2.abrupt("return", data);
 
-          case 20:
+          case 21:
           case "end":
             return _context2.stop();
         }
@@ -3788,13 +3791,13 @@ function key(config) {
 
   if (Object(_utilities__WEBPACK_IMPORTED_MODULE_11__["isString"])(config.key)) {
     cacheKey = function cacheKey(req) {
-      var url = "".concat(req.baseURL ? req.baseURL : '').concat(req.url);
+      var url = "".concat(req.baseURL ? req.baseURL : "").concat(req.url);
       var key = "".concat(config.key, "/").concat(url).concat(serializeQuery(req));
       return req.data ? key + md5__WEBPACK_IMPORTED_MODULE_12___default()(req.data) : key;
     };
   } else {
     cacheKey = function cacheKey(req) {
-      var url = "".concat(req.baseURL ? req.baseURL : '').concat(req.url);
+      var url = "".concat(req.baseURL ? req.baseURL : "").concat(req.url);
       var key = url + serializeQuery(req);
       return req.data ? key + md5__WEBPACK_IMPORTED_MODULE_12___default()(req.data) : key;
     };
@@ -3841,9 +3844,9 @@ function invalidate() {
 }
 
 function serializeQuery(req) {
-  if (!req.params) return ''; // Probably server-side, just stringify the object
+  if (!req.params) return ""; // Probably server-side, just stringify the object
 
-  if (typeof URLSearchParams === 'undefined') return JSON.stringify(req.params);
+  if (typeof URLSearchParams === "undefined") return JSON.stringify(req.params);
   var params = req.params;
   var isInstanceOfURLSearchParams = req.params instanceof URLSearchParams; // Convert to an instance of URLSearchParams so it get serialized the same way
 
