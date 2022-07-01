@@ -34,7 +34,6 @@ async function read(config, req) {
   const entry = await config.store.getItem(uuid);
 
   if (ignoreCache || !entry || !entry.data) {
-    config.debug("cache-miss", req.url);
     const error = new Error();
 
     error.reason = "cache-miss";

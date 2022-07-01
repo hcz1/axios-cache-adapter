@@ -4443,7 +4443,7 @@ function _request() {
             res.config = req;
             res.request = {
               fromCache: true,
-              date: new Date().getTime()
+              cachedTime: new Date(res && res.headers && res.date ? res.headers.date : "").getTime()
             };
             return _context.abrupt("return", {
               config: config,

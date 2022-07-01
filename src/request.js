@@ -17,7 +17,12 @@ async function request(config, req) {
   try {
     const res = await read(config, req);
     res.config = req;
-    res.request = { fromCache: true, date: new Date().getTime() };
+    res.request = {
+      fromCache: true,
+      cachedTime: new Date(
+        res && res.headers && res.date ? res.headers.date : ""
+      ).getTime(),
+    };
 
     return { config, next: res };
   } catch (err) {
